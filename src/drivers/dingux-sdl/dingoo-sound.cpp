@@ -26,6 +26,7 @@
 #include <stdlib.h>
 
 #include "dingoo.h"
+#include "keyscan.h"
 
 #include "../common/configSys.h"
 
@@ -168,11 +169,23 @@ uint32 GetBufferedSound(void) {
     return s_BufferIn;
 }
 
+// a hack to check DINGOO_R hotkey combo
+static int ispressed(int sdlk_code)
+{
+	Uint8 *keystate = SDL_GetKeyState(NULL);
+
+	if(keystate[sdlk_code]) return 1;
+
+	return 0;
+}
 /**
  * Send a sound clip to the audio subsystem.
  */
 void WriteSound(int32 *buf, int Count) 
 {
+    if(ispressed(DINGOO_L)) {
+        Count /= 2;
+    }
     //extern int EmulationPaused;
 
     SDL_LockAudio();
@@ -195,7 +208,7 @@ _exit:
 
     // If we have too much audio, wait a bit before accepting more.
     // This keeps the lag in check.
-    while (GetBufferedSound() > 3 * GetBufferSize())
+    while (GetBufferedSound() >= 2 * GetBufferSize())
         usleep(1000);
 }
 
