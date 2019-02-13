@@ -808,6 +808,9 @@ int main(int argc, char *argv[]) {
 
 	g_config->getOption("SDL.Frameskip", &frameskip);
 
+    // update rom specified input config
+	UpdateInput(g_config);
+
 	// loop playing the game
 	DoFun(frameskip);
 
