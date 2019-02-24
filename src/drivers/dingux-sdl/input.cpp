@@ -50,6 +50,7 @@ extern Config *g_config;
 extern bool bindSavestate, frameAdvanceLagSkip, lagCounterDisplay;
 // counter for autofire
 extern int rapidAlternator;
+int fastforward = 0;
 
 /* UsrInputType[] is user-specified.  InputType[] is current
  (game loading can override user settings)
@@ -310,6 +311,11 @@ static void KeyboardCommands() {
 		return;
 	}
 
+    // toggle fastforwad
+    if(ispressed(DINGOO_L)) {
+        fastforward = !fastforward;
+        resetkey(DINGOO_L);
+    }
 	// R shift + combokeys
 	if(ispressed(DINGOO_R)) {
 		extern int g_slot; // import from gui.cpp
