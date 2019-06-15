@@ -311,11 +311,11 @@ static void KeyboardCommands() {
 		return;
 	}
 
-    // toggle fastforwad
-    if(ispressed(DINGOO_L)) {
-        fastforward = !fastforward;
-        resetkey(DINGOO_L);
-    }
+   // moved to R + L so no chance of accidently switching on . toggle fastforward
+   //if(ispressed(DINGOO_L)) {
+   //     fastforward = !fastforward;
+   //     resetkey(DINGOO_L);
+   //}
 	// R shift + combokeys
 	if(ispressed(DINGOO_R)) {
 		extern int g_slot; // import from gui.cpp
@@ -365,6 +365,10 @@ static void KeyboardCommands() {
 		if(_keyonly(DINGOO_START)) { // R + START  pause emulation
 			FCEUI_ToggleEmulationPause();
 			resetkey(DINGOO_START);
+		}
+		if(_keyonly(DINGOO_L)) {// R + L toggle fastforward
+		    fastforward = !fastforward;
+		    resetkey(DINGOO_L);
 		}
 	}
 
