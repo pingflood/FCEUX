@@ -26,6 +26,15 @@
 #include <windows.h>
 #endif
 
+/* Declare global overclocking variables */
+extern bool overclock_enabled;
+//extern bool overclocking;
+extern bool skip_7bit_overclocking;
+extern int normalscanlines;
+extern int totalscanlines;
+extern int postrenderscanlines;
+extern int vblankscanlines;
+
 /**
  * Read a custom pallete from a file and load it into the core.
  */
@@ -145,6 +154,12 @@ Config * InitConfig() {
 	// scanline settings
 	config->addOption("slstart", "SDL.ScanLineStart", 0);
 	config->addOption("slend", "SDL.ScanLineEnd", 239);
+
+    // overclocking settings
+    config->addOption("ocenabled", "SDL.OverclockEnabled", 0);
+    config->addOption("skip7bitoc", "SDL.Skip7BitOverclocking", 0);
+    config->addOption("vblanksls", "SDL.VBlankScanLines", 0);
+    config->addOption("postrendersls", "SDL.PostRenderScanLines", 0);
 
 	// video controls
 	config->addOption('x', "xres", "SDL.XResolution", 320);
@@ -438,4 +453,13 @@ void UpdateEMUCore(Config *config) {
 #endif
 
 	FCEUI_SetRenderedLines(start, end, start, end);
+
+    // Overclock settings
+    config->getOption("SDL.OverclockEnabled", &flag);
+    overclock_enabled = flag ? true : false;
+    config->getOption("SDL.Skip7BitOverclocking", &flag);
+    skip_7bit_overclocking = flag ? true : false;
+    config->getOption("SDL.VBlankScanLines", &vblankscanlines);
+    config->getOption("SDL.PostRenderScanlines", &postrenderscanlines);
+    totalscanlines = normalscanlines + (overclock_enabled ? postrenderscanlines : 0);
 }
