@@ -11,6 +11,7 @@ typedef struct _setting_entry {
 #include "video_settings.cpp"
 #include "sound_settings.cpp"
 #include "control_settings.cpp"
+#include "overclock_settings.cpp"
 
 // #define SETTINGS_MENUSIZE 5
 
@@ -28,6 +29,10 @@ static void cmd_sound_settings(unsigned long key) {
 
 static void cmd_control_settings(unsigned long key) {
 	RunControlSettings();
+}
+
+static void cmd_oc_settings(unsigned long key) {
+	RunOverclockSettings();
 }
 
 static void cmd_config_save(unsigned long key) {
@@ -62,6 +67,7 @@ static SettingEntry settings_menu[] =
 	{ "Video", "Change video settings", "NULL", cmd_video_settings },
 	{ "Audio", "Change sound settings", "NULL", cmd_sound_settings },
 	{ "Input", "Change control settings", "NULL", cmd_control_settings },
+	{ "Overclock", "Change NES overclock settings", "NULL", cmd_oc_settings },
 	{ "Game Genie", "Emulate Game Genie", "SDL.GameGenie", gg_update },
 	{ "Save settings",	"Save as default settings", "NULL", cmd_config_save }
 };
