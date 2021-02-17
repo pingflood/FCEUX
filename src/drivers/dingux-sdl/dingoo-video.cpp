@@ -63,7 +63,7 @@ int FDSSwitchRequested = 0;
 #define NOFFSET	(s_clipSides ? 8 : 0)
 
 /* Blur effect taken from vidblit.cpp */
-uint32 palettetranslate[65536 * 4];
+uint32 palettetranslate[65536];
 static uint32 CBM[3] = { 63488, 2016, 31 };
 static uint16 s_psdl[256];
 

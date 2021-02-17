@@ -5,7 +5,7 @@
 #define AVERAGEHI(AB) ((((AB) & 0xF7DE0000) >> 1) + (((AB) & 0xF7DE) << 15))
 #define AVERAGELO(CD) ((((CD) & 0xF7DE) >> 1) + (((CD) & 0xF7DE0000) >> 17))
 
-extern uint32 palettetranslate[65536 * 4];
+extern uint32 palettetranslate[65536];
 
 /*
 	Upscale 256x224 -> 320x240
